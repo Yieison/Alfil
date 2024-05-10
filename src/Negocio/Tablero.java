@@ -27,12 +27,28 @@ public class Tablero {
     }
 
     public Tablero(int i_alfil, int j_alfil, int i_peon, int j_peon, boolean direccionPeon) {
-
+if (validarPosicion(i_alfil, j_alfil, i_peon, j_peon)) {
         this.peon = new Peon(i_peon, j_peon);
         this.alfil = new Alfil(i_alfil, j_alfil);
         this.direccionPeon = direccionPeon;
         this.tableroMatriz = new char[8][8];
+        }
+        else{
+            throw new IllegalArgumentException("Posiciones no válidas");
+        }
+    }
 
+
+    private boolean validarPosicion(int i_alfil, int j_alfil, int i_peon, int j_peon) {
+        // Verificamos que las posiciones estén dentro del tablero
+        if (i_alfil < 0 || i_alfil > 7 || j_alfil < 0 || j_alfil > 7 || i_peon < 0 || i_peon > 7 || j_peon < 0 || j_peon > 7) {
+            return false;
+        }
+        // Verificamos que las posiciones no sean iguales
+        if (i_alfil == i_peon && j_alfil == j_peon) {
+            return false;
+        }
+        return true;
     }
 
     public void posicionarPeon() {
